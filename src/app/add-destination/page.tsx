@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -50,9 +50,19 @@ const AddDestinationPage = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Travel Package Data:", formData);
+    const res = await fetch("http://localhost:8000/add-destination", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    console.log("working data", data);
+
+    // console.log("Travel Package Data:", formData);
   };
 
   return (
@@ -96,7 +106,7 @@ const AddDestinationPage = () => {
                 <Input
                   id="country"
                   name="country"
-                  placeholder="Indonesia"
+                  placeholder="Bangladesh"
                   value={formData.country}
                   onChange={handleChange}
                   className="bg-[#f8f9fa] border-none text-neutral-700 placeholder:text-neutral-400 h-11 focus-visible:ring-1 focus-visible:ring-neutral-300"
