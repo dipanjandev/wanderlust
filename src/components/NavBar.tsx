@@ -10,6 +10,7 @@ import { cn } from "cn";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/destinations", label: "Destinations" },
+  { href: "/add-destination", label: "Add Destination" },
   { href: "/bookings", label: "My Bookings" },
   { href: "/admin", label: "Admin" },
 ];
@@ -23,7 +24,7 @@ export default function NavBar() {
 
   return (
     <header className="relative z-50 bg-white">
-      <div className="mx-auto flex h-16 w-full max-w-[1600px] items-center justify-between px-5 sm:px-8 lg:h-[72px] lg:px-10">
+      <div className="mx-auto flex h-16 w-full max-w-[1600px] items-center justify-between px-5 sm:px-8 lg:h-18 lg:px-10">
         <div className="flex items-center">
           <button
             type="button"
@@ -58,7 +59,7 @@ export default function NavBar() {
                   className={cn(
                     "text-[15px] font-medium text-neutral-900 xl:text-base",
                     linkStyles,
-                    active && "text-brand hover:text-brand"
+                    active && "text-brand hover:text-brand",
                   )}
                 >
                   {link.label}
@@ -68,11 +69,7 @@ export default function NavBar() {
           </nav>
         </div>
 
-        <Link
-          href="/"
-          className="shrink-0"
-          aria-label="Wanderlust home"
-        >
+        <Link href="/" className="shrink-0" aria-label="Wanderlust home">
           <Image
             src="/images/Wanderlast.png"
             alt="Wanderlust"
@@ -123,7 +120,7 @@ export default function NavBar() {
                   aria-current={active ? "page" : undefined}
                   className={cn(
                     "py-3 text-base font-medium text-neutral-900",
-                    active && "text-brand"
+                    active && "text-brand",
                   )}
                 >
                   {link.label}
