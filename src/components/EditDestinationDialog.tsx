@@ -86,11 +86,9 @@ const EditDestinationDialog = ({ destination }: { destination: IDataType }) => {
 
   return (
     <Dialog>
-      <DialogTrigger>
-        <button className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium border border-slate-300 rounded text-slate-700 hover:bg-slate-50 transition-colors">
-          <Edit3 className="w-3.5 h-3.5" />
-          <span>Edit</span>
-        </button>
+      <DialogTrigger className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-medium border border-slate-300 rounded text-slate-700 hover:bg-slate-50 transition-colors">
+        <Edit3 className="w-3.5 h-3.5" />
+        <span>Edit</span>
       </DialogTrigger>
       <DialogContent className={"min-w-3xl"}>
         <DialogHeader>

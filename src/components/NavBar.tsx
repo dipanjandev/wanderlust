@@ -6,6 +6,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, UserRound, X } from "lucide-react";
 import { cn } from "cn";
+import { signOut, useSession } from "@/lib/auth-client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "./ui/button";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -19,6 +30,14 @@ const linkStyles =
   "transition-colors hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand";
 
 export default function NavBar() {
+  const { data: session } = useSession();
+  // console.log(session);
+  const user = session?.user;
+  // console.log(user);
+  const handleSignOut = () => {
+    signOut();
+  };
+
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -88,15 +107,48 @@ export default function NavBar() {
             <UserRound className="size-4" strokeWidth={1.75} />
             Profile
           </Link>
-          <Link href="/login" className={linkStyles}>
-            Login
-          </Link>
-          <Link
-            href="/signup"
-            className={cn("hidden font-semibold sm:inline", linkStyles)}
-          >
-            Sign Up
-          </Link>
+
+          {/* Conditional Rendering */}
+          {user ? (
+            // if Logged in then show this
+            <Popover>
+              <PopoverTrigger
+                render={
+                  <Avatar>
+                    <AvatarImage
+                      referrerPolicy={"no-referrer"}
+                      src={user?.image as string}
+                    />
+                    <AvatarFallback>{user?.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                }
+              ></PopoverTrigger>
+              <PopoverContent className={"p-5"}>
+                <PopoverHeader>
+                  <PopoverTitle className={"text-lg"}>
+                    {user?.name}
+                  </PopoverTitle>
+                  <PopoverDescription>{user?.email}</PopoverDescription>
+                  <Button variant={"destructive"} onClick={handleSignOut}>
+                    Signout
+                  </Button>
+                </PopoverHeader>
+              </PopoverContent>
+            </Popover>
+          ) : (
+            // if not loggedin then show login and signup button
+            <>
+              <Link href="/login" className={linkStyles}>
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className={cn("hidden font-semibold sm:inline", linkStyles)}
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
       </div>
 
