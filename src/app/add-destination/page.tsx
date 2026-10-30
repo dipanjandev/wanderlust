@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Trash2, Save } from "lucide-react";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const AddDestinationPage = () => {
   const [formData, setFormData] = useState({
@@ -52,15 +53,22 @@ const AddDestinationPage = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8000/add-destination", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+
+    const token = await getTokenFromClient();
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/add-destination`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
       },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    console.log("working data", data);
+    );
+    const result = await res.json();
+    console.log("working data", result);
 
     // console.log("Travel Package Data:", formData);
   };

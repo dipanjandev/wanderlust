@@ -4,6 +4,7 @@ import { ArrowLeft, MapPin, Star, Calendar, Check } from "lucide-react";
 import EditDestinationDialog from "@/components/EditDestinationDialog";
 import DeleteDestinationDialog from "@/components/DeleteDestinationDialog";
 import BookingCard from "@/components/booking/BookingCard";
+import { getTokenFromServer } from "@/lib/getTokenFromServer";
 
 interface IDataType {
   _id?: string;
@@ -23,11 +24,23 @@ interface PageProps {
 }
 
 const DestinationDetailsPage = async ({ params }: PageProps) => {
+  // এখানে ডিস্ট্রাকচার করা হল।
   const { id } = await params;
 
-  // ফেচ ডেটা
-  const res = await fetch(`http://localhost:8000/destinations/${id}`);
+  // এখানে আমরা টোকেনটাকে ইম্পোর্ট করলাম।
+  const token = await getTokenFromServer();
 
+  // ফেচ ডেটা
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/destinations/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  // এখানে কন্ডিশন দেওয়া হল যদি রেসপন্স ওকে না থাকে তাহলে একটা এরর মেসেজ শো করবে।
   if (!res.ok) {
     return (
       <div className="min-h-screen flex items-center justify-center text-slate-500">

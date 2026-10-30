@@ -18,13 +18,15 @@ import { Input } from "@/components/ui/input";
 import { signIn } from "@/lib/auth-client";
 
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { FormEvent } from "react";
 
 export default function SignInPage() {
-  const handleEmailLogin = async (e: React.SubmitEvent<HTMLElement>) => {
+  const router = useRouter();
+
+  const handleEmailLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries()) as {
       email: string;
       password: string;
@@ -35,7 +37,8 @@ export default function SignInPage() {
       ...user,
     });
     if (data) {
-      redirect("/");
+      router.push("/");
+      router.refresh();
     } else if (error) {
       console.log(error);
     }

@@ -13,15 +13,27 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
 import { Trash2 } from "lucide-react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const DeleteDestinationDialog = ({ id }: { id: string }) => {
+  const router = useRouter();
+
   const handleDeleteDestination = async () => {
-    const res = await fetch(`http://localhost:8000/destinations/${id}`, {
-      method: "DELETE",
-    });
-    return await res.json();
-    redirect("/destinations");
+    const token = await getTokenFromClient();
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/destinations/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    if (res.ok) {
+      router.push("/destinations");
+      router.refresh();
+    }
   };
 
   return (

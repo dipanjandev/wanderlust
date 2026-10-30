@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { Trash2, Save } from "lucide-react";
 import { FormEvent, useState } from "react";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 interface IDataType {
   _id?: string;
@@ -68,12 +69,16 @@ const EditDestinationDialog = ({ destination }: { destination: IDataType }) => {
     e.preventDefault();
 
     const { _id, ...updatedData } = formData;
+
+    const token = await getTokenFromClient();
+
     const res = await fetch(
-      `http://localhost:8000/destination/${destination._id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/destination/${destination._id}`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(updatedData),
       },

@@ -117,9 +117,11 @@ export default function NavBar() {
                   <Avatar>
                     <AvatarImage
                       referrerPolicy={"no-referrer"}
-                      src={user?.image as string}
+                      src={user?.image ?? undefined}
                     />
-                    <AvatarFallback>{user?.name.charAt(0)}</AvatarFallback>
+                    <AvatarFallback>
+                      {user?.name?.charAt(0)?.toUpperCase() || "U"}
+                    </AvatarFallback>
                   </Avatar>
                 }
               ></PopoverTrigger>

@@ -2,19 +2,20 @@
 import Image from "next/image";
 import { CheckCircle2, Calendar, MapPin, Trash2, Eye } from "lucide-react";
 import { IBookingType } from "@/app/bookings/page";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const MybookingsList = ({ myBooking }: { myBooking: IBookingType }) => {
+  const router = useRouter();
+
   const handleDeleteItem = async () => {
     const res = await fetch(
-      `http://localhost:8000/mybookings/${myBooking._id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/mybookings/${myBooking._id}`,
       {
         method: "DELETE",
       },
     );
-    const data = await res.json();
-    // console.log(data);
-    redirect("/bookings");
+    await res.json();
+    router.refresh();
   };
 
   // তারিখ সুন্দর ফরম্যাটে রূপান্তর (যেমন: May 15, 2026)

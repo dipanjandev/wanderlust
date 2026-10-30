@@ -4,9 +4,16 @@ import { useSession } from "@/lib/auth-client";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
 
-interface IDataType {
+export interface IDataType {
+  _id?: string;
+  destinationName?: string;
+  country?: string;
+  category?: string;
   price: string;
+  duration?: string;
   departureDate: string;
+  imageUrl?: string;
+  description?: string;
 }
 
 const BookingCard = ({ destination }: { destination: IDataType }) => {
@@ -16,9 +23,10 @@ const BookingCard = ({ destination }: { destination: IDataType }) => {
 
   //   console.log(destination);
 
-  const handleBooking = async (e) => {
+  const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const departureDate = e.target.departureDate.value;
+    const formData = new FormData(e.currentTarget);
+    const departureDate = (formData.get("departureDate") as string) || destination.departureDate;
     // console.log(departureDate);
     const data = {
       userName: user?.name,
@@ -29,7 +37,7 @@ const BookingCard = ({ destination }: { destination: IDataType }) => {
       bookingDate: new Date(),
     };
 
-    const res = await fetch("http://localhost:8000/booking", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/booking`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

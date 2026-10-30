@@ -24,9 +24,20 @@ const myBookingsPage = async () => {
   });
   const user = session?.user;
   //   console.log("user information", user);
-  const res = await fetch(`http://localhost:8000/mybookings/${user?.email}`);
-  const booking: IBookingType[] = await res.json();
-  console.log(booking);
+  let booking: IBookingType[] = [];
+  if (user?.email) {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/mybookings/${user.email}`,
+      );
+      if (res.ok) {
+        const data = await res.json();
+        booking = Array.isArray(data) ? data : [];
+      }
+    } catch (err) {
+      console.error("Failed to fetch bookings:", err);
+    }
+  }
 
   return (
     <div className="container mx-auto my-10 space-y-5">

@@ -32,15 +32,15 @@ export default function Banner() {
         sizes="100vw"
         className="object-cover object-center"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/25 to-black/55" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/35 via-black/25 to-black/55" />
 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 py-14 text-center sm:px-10 lg:py-20">
-        <h1 className="w-full max-w-5xl font-heading text-[clamp(2.25rem,6.6vw,6rem)] font-light leading-[1.0] tracking-[-0.01em] text-white">
+        <h1 className="w-full max-w-5xl font-heading text-[clamp(2.25rem,6.6vw,6rem)] font-light leading-none tracking-[-0.01em] text-white">
           <span className="block">Discover Your</span>
           <span className="block">Next Adventure</span>
         </h1>
 
-        <p className="mt-6 w-full max-w-[40rem] text-[clamp(1rem,1.4vw,1.25rem)] font-light leading-relaxed text-white/95">
+        <p className="mt-6 w-full max-w-160 text-[clamp(1rem,1.4vw,1.25rem)] font-light leading-relaxed text-white/95">
           Explore breathtaking destinations and create unforgettable memories
           with
           <br className="hidden sm:block" /> our curated travel experiences.
@@ -49,7 +49,7 @@ export default function Banner() {
         <div className="mt-10 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row lg:mt-12">
           <button
             type="button"
-            className="group inline-flex h-[50px] w-full items-center justify-center gap-2.5 bg-brand px-5 text-[15px] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
+            className="group inline-flex h-12.5 w-full items-center justify-center gap-2.5 bg-brand px-5 text-[15px] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:bg-brand/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
           >
             Explore Now
             <ArrowRight
@@ -59,7 +59,7 @@ export default function Banner() {
           </button>
           <button
             type="button"
-            className="inline-flex h-[50px] w-full items-center justify-center border border-white/30 bg-white/20 px-5 text-[15px] font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm transition-colors hover:bg-white/30 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
+            className="inline-flex h-12.5 w-full items-center justify-center border border-white/30 bg-white/20 px-5 text-[15px] font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm transition-colors hover:bg-white/30 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
           >
             View Destination
           </button>
@@ -73,7 +73,7 @@ export default function Banner() {
           ))}
           <button
             type="button"
-            className="col-span-2 flex min-h-16 items-center justify-center bg-brand px-8 text-xl font-semibold text-white transition-colors hover:bg-brand/90 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white lg:col-span-1"
+            className="col-span-2 flex min-h-16 items-center justify-center bg-brand px-8 text-xl font-semibold text-white transition-colors hover:bg-brand/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:col-span-1"
           >
             Search
           </button>

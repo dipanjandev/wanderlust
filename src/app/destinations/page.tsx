@@ -13,9 +13,16 @@ interface IDataType {
 }
 
 const AllUserDestination = async () => {
-  const res = await fetch("http://localhost:8000/destinations");
-  const data: IDataType[] = await res.json();
-  //   console.log(data, "from all user data");
+  let data: IDataType[] = [];
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/destinations`);
+    if (res.ok) {
+      const json = await res.json();
+      data = Array.isArray(json) ? json : [];
+    }
+  } catch (err) {
+    console.error("Failed to fetch destinations:", err);
+  }
 
   return (
     <div className="container mx-auto my-15 space-y-5">

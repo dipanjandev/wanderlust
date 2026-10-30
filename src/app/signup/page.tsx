@@ -17,13 +17,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { signUp } from "@/lib/auth-client";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { FormEvent } from "react";
 
 export default function SignUpPage() {
-  const handleEmailSignup = async (e: React.SubmitEvent<HTMLElement>) => {
+  const router = useRouter();
+
+  const handleEmailSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries()) as {
       name: string;
       email: string;
@@ -36,7 +38,8 @@ export default function SignUpPage() {
       ...user,
     });
     if (data) {
-      redirect("/");
+      router.push("/");
+      router.refresh();
     } else if (error) {
       console.log(error);
     }
