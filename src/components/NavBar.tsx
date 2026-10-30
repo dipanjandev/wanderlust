@@ -113,6 +113,7 @@ export default function NavBar() {
             // if Logged in then show this
             <Popover>
               <PopoverTrigger
+                nativeButton={false}
                 render={
                   <Avatar>
                     <AvatarImage
